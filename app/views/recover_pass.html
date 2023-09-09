@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="container2">
+            <div class="login-form">
+                <h2>Esqueci a senha</h2>
+                <form action="http://localhost:5000/recover_pass/" method="post">
+                    <div class="form-group">
+                        <input type="text" id="username" name="username" placeholder="E-MAIL" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="RECUPERAR SENHA">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="side-panel">
+            <h4 class="title">Tranquilo,</h4>
+            <p class="text">Vamos te ajudar. Digite seu endereço de e-mail e te encaminharemos uma mensagem para recuperar o acesso</p>
+        </div>
+    </div>
+{% endblock %}

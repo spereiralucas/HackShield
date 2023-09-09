@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="container2">
+            <div class="login-form">
+                <h2>Entrar</h2>
+                <form action="http://localhost:5000/login" method="post">
+                    <div class="form-group">
+                        <input type="text" id="username" name="username" placeholder="E-MAIL/USERNAME" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="password" name="password" placeholder="SENHA" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="ENTRAR">
+                    </div>
+                    <div class="form-group">
+                        <a href="http://0.0.0.0:5000/recover_pass/"><strong>Esqueceu a senha?</strong></a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="side-panel">
+            <p class="title">Olá Amigo(a)</p>
+            <p class="text">Informe seu e-mail e senha para entrar na plataforma.</p>
+        </div>
+    </div>
+{% endblock %}
