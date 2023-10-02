@@ -3,5 +3,7 @@ constants = {
     'JWT_EXPIRE_TIME': 10000000,  # Em prod ou homolog: 1800
     'JWT_LEEWAY_TIME': 172800,
     'PASSWORD_SECRET': 'h4Ck$H13lD',
-    'LOGO_COLOR': ['#0c051b', '#90ddf0', '#1e0a49']
+    'LOGO_COLOR': ['#0c051b', '#90ddf0', '#1e0a49'],
+    'SWAGGER_URL': '/docs',
+    'API_URL': '/static/swagger.json'
 }

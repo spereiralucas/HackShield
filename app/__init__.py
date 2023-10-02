@@ -1,7 +1,15 @@
 from flask import Flask
+from constants import constants
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
+from flask_swagger_ui import get_swaggerui_blueprint
 
+
+swagger_ui_blueprint = get_swaggerui_blueprint(
+    constants['SWAGGER_URL'],
+    constants['API_URL'],
+    config={'app_name': 'Access API'}
+)
 
 app = Flask(
     __name__,
@@ -11,6 +19,10 @@ app = Flask(
 app.app_context().push
 
 app.config.from_object('config')
+app.register_blueprint(
+    swagger_ui_blueprint,
+    url_prefix=constants['SWAGGER_URL']
+)
 
 db = SQLAlchemy(app)
 
