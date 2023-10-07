@@ -1,13 +1,13 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "Access API",
-        "version": "1.0.0"
+        "title": "HackShield Doc.",
+        "version": "0.0.0"
     },
     "paths": {
         "/": {
             "get": {
-                "description": "Returns message showing app is up",
+                "description": "Web Site home page",
                 "produces": [
                     "application/json"
                 ],
@@ -18,7 +18,7 @@
                 }
             }
         },
-        "/access": {
+        "/login": {
             "post": {
                 "description": "Grants access to an user",
                 "consumes": [
@@ -44,6 +44,39 @@
                     },
                     "400": {
                         "description": "Invalid request data"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/recover_pass": {
+            "post": {
+                "description": "Recover user password",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "recover_pass",
+                        "in": "body",
+                        "description": "JSON data for the api",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/RecoverPass"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "E-mail send successful"
+                    },
+                    "400": {
+                        "description": "Email not found"
                     }
                 }
             }
@@ -53,10 +86,18 @@
         "AccessData": {
             "type": "object",
             "properties": {
-                "name": {
+                "username/e-mail": {
                     "type": "string"
                 },
-                "server": {
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "RecoverPass": {
+            "type": "object",
+            "properties": {
+                "e-mail": {
                     "type": "string"
                 }
             }
