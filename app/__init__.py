@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from constants import constants
 from flask_migrate import Migrate
@@ -23,6 +24,8 @@ app.register_blueprint(
     swagger_ui_blueprint,
     url_prefix=constants['SWAGGER_URL']
 )
+
+os.environ['WERKZEUG_TIMEOUT'] = '60'
 
 db = SQLAlchemy(app)
 
