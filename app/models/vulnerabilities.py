@@ -8,22 +8,20 @@ class Vulnerabilities(db.Model):
     id, date_insert, date_last_update = BaseModel()
 
     vuln_id = db.Column(db.String(255))
-    vulnerability = db.Column(db.Text)
-    port = db.Column(db.Integer)
-    protocol = db.Column(db.String(20))
-    reference = db.Column(db.Text)
-    impact = db.Column(db.Text)
-    solution = db.Column(db.Text)
+    is_exploit = db.Column(db.Boolean)
+    severity = db.Column(db.Float)
+    type = db.Column(db.ForeignKey('vulnerability_type.id'))
+    url = db.Column(db.String(255))
+    port = db.Column(db.ForeignKey('port.id'))
 
-    def __init__(self, vuln_id, vulnerability, port, protocol,
-                 reference, impact, solution):
+    def __init__(self, vuln_id, is_exploit,
+                 severity, type, url, port):
         self.vuln_id = vuln_id
-        self.vulnerability = vulnerability
+        self.is_exploit = is_exploit
+        self.severity = severity
+        self.type = type
+        self.url = url
         self.port = port
-        self.protocol = protocol
-        self.reference = reference
-        self.impact = impact
-        self.solution = solution
 
     def __repr__(self):
-        return "%r" % self.vuln_id
+        return '%r' % self.vuln_id

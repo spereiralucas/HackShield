@@ -7,23 +7,16 @@ class Port(db.Model):
 
     id, date_insert, date_last_update = BaseModel()
 
-    vuln_id = db.Column(db.String(255))
-    vulnerability = db.Column(db.Text)
-    port = db.Column(db.Integer)
-    protocol = db.Column(db.String(20))
-    reference = db.Column(db.Text)
-    impact = db.Column(db.Text)
-    solution = db.Column(db.Text)
+    port = db.Column(db.Integer, nullable=False)
+    state = db.Column(db.Boolean)
+    protocol = db.Column(db.ForeignKey('protocol.id'))
+    service = db.Column(db.String(255))
 
-    def __init__(self, vuln_id, vulnerability, port, protocol,
-                 reference, impact, solution):
-        self.vuln_id = vuln_id
-        self.vulnerability = vulnerability
+    def __init__(self, port, state, protocol, service):
         self.port = port
+        self.state = state
         self.protocol = protocol
-        self.reference = reference
-        self.impact = impact
-        self.solution = solution
+        self.service = service
 
     def __repr__(self):
-        return "%r" % self.vuln_id
+        return "%r" % self.port

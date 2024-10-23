@@ -8,21 +8,13 @@ class Equipment(db.Model):
     id, date_insert, date_last_update = BaseModel()
 
     host = db.Column(db.String(15), unique=True)
-    port = db.Column(db.Text)
-    protocol = db.Column(db.String(20))
-    reference = db.Column(db.Text)
-    impact = db.Column(db.Text)
-    solution = db.Column(db.Text)
+    hostname = db.Column(db.String(255), unique=True, nullable=True)
+    os = db.Column(db.String(50))
 
-    def __init__(self, vuln_id, vulnerability, port, protocol,
-                 reference, impact, solution):
-        self.vuln_id = vuln_id
-        self.vulnerability = vulnerability
-        self.port = port
-        self.protocol = protocol
-        self.reference = reference
-        self.impact = impact
-        self.solution = solution
+    def __init__(self, host, hostname, os):
+        self.host = host
+        self.hostname = hostname
+        self.os = os
 
     def __repr__(self):
-        return "%r" % self.vuln_id
+        return "%r" % self.hostname
