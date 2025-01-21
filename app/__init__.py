@@ -1,5 +1,6 @@
 import os
 from flask import Flask
+from flask_cors import CORS
 from constants import constants
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
@@ -18,6 +19,7 @@ app = Flask(
     static_folder='views/static/'
 )
 app.app_context().push
+CORS(app)
 
 app.config.from_object('config')
 app.register_blueprint(

@@ -1,29 +1,68 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="container">
-        <div class="container2">
-            <div class="login-form">
-                <h2>Entrar</h2>
-                <form action="http://localhost:5000/login" method="post">
-                    <div class="form-group">
-                        <input type="text" id="username" name="username" placeholder="E-MAIL/USERNAME" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" id="password" name="password" placeholder="SENHA" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="ENTRAR">
-                    </div>
-                    <div class="form-group">
-                        <a href="http://0.0.0.0:5000/recover_pass/"><strong>Esqueceu a senha?</strong></a>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="side-panel">
-            <p class="title">Olá Amigo(a)</p>
-            <p class="text">Informe seu e-mail e senha para entrar na plataforma.</p>
+<div class="container">
+    <div class="container2">
+        <div class="login-form">
+            <h2>Entrar</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <input type="text" id="username" name="username" placeholder="E-MAIL/USERNAME" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" name="password" placeholder="SENHA" required>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="ENTRAR">
+                </div>
+                <div class="form-group">
+                    <a href="http://0.0.0.0:5010/recover_pass/"><strong>Esqueceu a senha?</strong></a>
+                </div>
+            </form>
+            <div id="responseMessage"></div> <!-- Para exibir a mensagem de resposta -->
         </div>
     </div>
+    <div class="side-panel">
+        <p class="title">Olá Amigo(a)</p>
+        <p class="text">Informe seu e-mail e senha para entrar na plataforma.</p>
+    </div>
+</div>
+
+<script>
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+        event.preventDefault();  // Impede o envio padrão do formulário
+
+        const formData = new FormData(event.target);
+        const data = {
+            username: formData.get("username"),
+            password: formData.get("password")
+        };
+
+        fetch("http://localhost:5010/user/auth", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"  // Define o tipo de conteúdo como JSON
+            },
+            body: JSON.stringify(data)  // Converte o objeto em JSON para envio
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro na requisição: ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            const messageDiv = document.getElementById("responseMessage");
+            if (data.response === 201) {
+                messageDiv.innerHTML = "<p>Login bem-sucedido!</p>";
+                setTimeout(() => {
+                    window.location.href = "/";
+                }, 1000);
+            } else {
+                messageDiv.innerHTML = `<p>Erro: ${data.msg}</p>`;
+            }
+        })
+        .catch(error => console.error("Erro:", error));
+    });
+</script>
 {% endblock %}

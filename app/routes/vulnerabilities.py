@@ -1,25 +1,42 @@
 from app import app
-from flask import make_response, jsonify, request
+from datetime import datetime
+from flask import make_response, jsonify, request, render_template
 from app.controllers.vulnerabilitiesController import VulnerabilitiesController
 
 
-get_schema = {
-    'host': {'required': True, 'empty': False},
-    'criticity': {'required': True, 'empty': False},
-    'level': {'required': True, 'empty': False}
-}
-
-
-@app.route("/vulnerabilities/get", methods=['POST'])
+@app.route("/vulnerabilities/get", methods=['GET', 'POST'])
 def get_vulnerabilities():
+    if request.method == 'POST':
+        vc = VulnerabilitiesController()
+        response = vc.get_vulnerabilities(
+            address=request.form['address'],
+            script=request.form['script'],
+            level=request.form['level']
+        )
+
+        result = jsonify(response)
+        result.status_code = response['status_code']
+
+        # return make_response(result)
+        return render_template(
+            'vulnerabilities.html',
+            vulnerabilities=response['vulnerabilities'],
+            show_footer=False
+        )
+    elif request.method == 'GET':
+        return render_template('vulnerabilities_form.html')
+
+
+@app.route('/vulnerabilities/list', methods=['GET'])
+def list_vuln():
     vc = VulnerabilitiesController()
-    response = vc.get_vulnerabilities(
-        address=request.form['address'],
-        script=request.form['script'],
-        level=request.form['level']
-    )
+    response = vc.list()
 
     result = jsonify(response)
-    result.status_code = response['status_code']
+    result.status_code = response['response']
 
-    return make_response(result)
+    return render_template(
+        'vulnerabilities.html',
+        vulnerabilities=response['vulnerabilities'],
+        show_footer=False
+    )

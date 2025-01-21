@@ -11,7 +11,7 @@ class UserController():
         self.db = db
 
     def add(self, request):
-        # user_admin = is_admin(self)
+        user_admin = is_admin(self)
 
         # if user_admin is False:
         #     response = {

@@ -110,3 +110,86 @@ h4[class="title"] {
     height: 60px;
     text-align: center;
 }
+
+/* Sidebar normal */
+.sidebar {
+    height: 100vh;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    color: #90ddf0;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    overflow: hidden; /* Evitar que o conteúdo transborde */
+    background-color: #0c051b;
+    flex-direction: column; /* Alinhar itens na vertical */
+    align-items: flex-start; /* Alinha os itens no início */
+    gap: 10px; /* Espaçamento entre os itens */
+}
+
+/* Sidebar recolhida */
+.sidebar.collapsed {
+    width: 60px; /* Apenas o botão visível */
+    padding: 10px 5px;
+    overflow: hidden; /* Esconde o restante do conteúdo */
+}
+
+/* Ocultar conteúdo da sidebar ao recolher */
+.sidebar.collapsed h4,
+.sidebar.collapsed a {
+    display: none;
+}
+
+.sidebar h4 {
+    margin-bottom: 20px; /* Espaçamento abaixo do título */
+    font-size: 1.2rem; /* Ajuste do tamanho da fonte */
+    color: #90ddf0;
+}
+
+/* Links da sidebar */
+.sidebar a {
+    display: block; /* Garante que os links ocupem a largura completa */
+    text-decoration: none; /* Remove o sublinhado */
+    color: #90ddf0; /* Cor do texto */
+    padding: 10px; /* Espaçamento interno dos links */
+    border-radius: 5px; /* Bordas arredondadas */
+    width: 100%; /* Ocupa toda a largura da sidebar */
+    box-sizing: border-box; /* Inclui padding e bordas no tamanho */
+    transition: background-color 0.3s ease; /* Efeito de hover */
+}
+
+.sidebar a:hover {
+    background-color: #e2e6ea; /* Fundo ao passar o mouse */
+}
+
+/* Botão sempre visível */
+.sidebar button {
+    display: block;
+    margin-bottom: 20px;
+    width: 100%; /* Preenche toda a largura da sidebar */
+    text-align: center; /* Centraliza o ícone */
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Conteúdo principal */
+.main-content {
+    margin-left: 250px; /* Largura padrão da sidebar */
+    transition: margin-left 0.3s ease;
+}
+
+.sidebar.collapsed ~ .main-content {
+    margin-left: 60px; /* Ajusta o conteúdo quando a sidebar está recolhida */
+}
+
+.btn-primary {
+    background-color: #0c051b;
+    color: #90ddf0;
+    width: 250px;
+    height: 50px;
+    padding: 10px 20px;
+    border: 1px solid #0c051b;
+    border-radius: 60px;
+}
