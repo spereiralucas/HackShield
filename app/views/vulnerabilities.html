@@ -20,6 +20,7 @@
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col"> </th>
+                            <th scope="col">ID</th>
                             <th scope="col">Vuln ID</th>
                             <th scope="col">Date</th>
                             <th scope="col">Description</th>
@@ -39,6 +40,7 @@
                         {% for vuln in vulnerabilities %}
                         <tr>
                             <td> </td>
+                            <td>{{ vuln.id }}</td>
                             <td>{{ vuln.vuln_id }}</td>
                             <td>{{ vuln.date }}</td>
                             <td>{{ vuln.description or 'N/A' }}</td>

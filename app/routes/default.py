@@ -25,3 +25,9 @@ def recover_pass():
 @app.route('/about/', methods=['GET'])
 def about():
     return render_template('about.html')
+
+
+# @app.route('/dashboard', methods=['GET'])
+# @app.route('/dashboard/', methods=['GET'])
+# def dashboard():
+#     return render_template('dashboard.html')

@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="text-center mb-4">Dashboards</h2>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-body">
+                        {% for dash in dashboards %}
+                        <p class="card-text display-4">{{ dash.low }}</p>
+                        {% endfor %}
+                        <p class="card-title">Low</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-white bg-success mb-3">
+                    <div class="card-body">
+                        {% for dash in dashboards %}
+                        <p class="card-text display-4">{{ dash.medium}}</p>
+                        {% endfor %}
+                        <p class="card-title">Medium</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-white bg-warning mb-3">
+                    <div class="card-body">
+                        {% for dash in dashboards %}
+                        <p class="card-text display-4">{{ dash.high }}</p>
+                        {% endfor %}
+                        <p class="card-title">High</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-white bg-danger mb-3">
+                    <div class="card-body">
+                        {% for dash in dashboards %}
+                        <p class="card-text display-4">{{ dash.critical }}</p>
+                        {% endfor %}
+                        <p class="card-title">Critical</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Equipments</div>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            <li class="list-group-item">{{ dashboards[0].total_equip }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">System Health</div>
+                    <div class="card-body">
+                        <canvas id="systemHealthChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Example chart using Chart.js
+    const ctx = document.getElementById('systemHealthChart').getContext('2d');
+    const chart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Healthy', 'Warning', 'Critical'],
+            datasets: [{
+                label: 'System Health',
+                data: [70, 20, 10],
+                backgroundColor: ['#28a745', '#ffc107', '#dc3545'],
+            }]
+        },
+        options: {
+            responsive: true,
+        }
+    });
+</script>
+{% endblock %}

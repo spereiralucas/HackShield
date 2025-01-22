@@ -234,7 +234,7 @@ class VulnerabilitiesController():
                    EquipmentPort.id == Port.id
             ).join(Equipment,
                    Equipment.id == EquipmentPort.equipment
-            ).order_by(Vulnerabilities.severity.desc())
+            ).order_by(Vulnerabilities.id.asc())
 
             if id:
                 # query = query.filter(Equipment.id == id).first()
